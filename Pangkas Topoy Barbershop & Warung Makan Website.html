@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PANGKAS TOPOY 💈💇‍♂️ & WARUNG MAKAN 🍜 | Cukur Rapi, Makan Enak!</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Plus Jakarta Sans & Cinzel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            300: '#FDE047',
+                            400: '#FACC15',
+                            500: '#EAB308',
+                            600: '#CA8A04',
+                            700: '#A16207'
+                        },
+                        amberGlow: {
+                            400: '#FB923C',
+                            500: '#F97316',
+                            600: '#EA580C'
+                        },
+                        dark: {
+                            950: '#0B0C10',
+                            900: '#12141C',
+                            800: '#1B1E2B',
+                            700: '#2A2E40',
+                            600: '#3D435C'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS Styling & Animations -->
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF5A5 0%, #EAB308 50%, #F97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-glow {
+            box-shadow: 0 0 25px rgba(234, 179, 8, 0.15);
+        }
+
+        .gold-glow:hover {
+            box-shadow: 0 0 35px rgba(234, 179, 8, 0.35);
+        }
+
+        @keyframes barberStripes {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 0; }
+        }
+        
+        .animated-barber-pole {
+            background: linear-gradient(-45deg, #dc2626 25%, #ffffff 25%, #ffffff 50%, #2563eb 50%, #2563eb 75%, #dc2626 75%);
+            background-size: 20px 20px;
+            animation: barberStripes 2s linear infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0C10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2E40;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #EAB308;
+        }
+    </style>
+</head>
+<body class="bg-dark-950 text-gray-200 font-sans antialiased selection:bg-gold-500 selection:text-black min-h-screen flex flex-col">
+
+    <!-- Header Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 w-full z-40 transition-all duration-300 bg-dark-900/95 backdrop-blur-md border-b border-dark-700/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-dark-800 border border-gold-500/50 flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-dark-950 transition-all duration-300 shadow-md">
+                        <i class="fa-solid fa-scissors text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-black text-lg sm:text-2xl tracking-wider text-white group-hover:text-gold-400 transition-colors">
+                            PANGKAS <span class="text-gold-400">TOPOY</span> 💈
+                        </span>
+                        <span class="text-[10px] tracking-widest uppercase text-amberGlow-400 font-extrabold -mt-1">& Warung Makan 🍜</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold">
+                    <a href="#beranda" class="hover:text-gold-400 transition-colors">Beranda</a>
+                    <a href="#pangkas" class="hover:text-gold-400 transition-colors">Pangkas Rambut</a>
+                    <a href="#kuliner" class="hover:text-gold-400 transition-colors">Menu Makan</a>
+                    <a href="#galeri" class="hover:text-gold-400 transition-colors">Galeri</a>
+                    <a href="#order" class="hover:text-gold-400 transition-colors">Order & Cart</a>
+                    <a href="#lokasi" class="hover:text-gold-400 transition-colors">Lokasi</a>
+                </div>
+
+                <!-- Status Badge & Cart Button -->
+                <div class="hidden lg:flex items-center gap-4">
+                    <!-- Status Indicator -->
+                    <div id="status-badge-nav" class="px-3.5 py-1.5 rounded-full text-xs font-extrabold border flex items-center gap-2 bg-dark-800 border-dark-700 text-gray-400">
+                        <span id="status-dot-nav" class="w-2.5 h-2.5 rounded-full bg-gray-500"></span>
+                        <span id="status-text-nav">Mengecek status...</span>
+                    </div>
+
+                    <!-- Cart Trigger Button -->
+                    <button onclick="scrollToCart()" class="relative px-4 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-950 font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-gold-500/20 transition-all hover:-translate-y-0.5">
+                        <i class="fa-solid fa-cart-shopping text-base"></i>
+                        <span>Pesanan</span>
+                        <span id="cart-count-badge" class="ml-1 bg-dark-950 text-gold-400 px-2 py-0.5 rounded-full text-[11px] font-black">0</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger Button & Cart Trigger -->
+                <div class="lg:hidden flex items-center gap-2">
+                    <button onclick="scrollToCart()" class="relative p-2.5 bg-gold-500 text-dark-950 rounded-lg font-bold text-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cart-count-badge-mobile" class="bg-dark-950 text-gold-400 text-xs px-1.5 py-0.2 rounded-full font-black">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-gold-400 focus:outline-none p-2 bg-dark-800 rounded-lg border border-dark-700" aria-label="Buka Menu Navigasi">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-dark-900 border-b border-dark-700 px-4 pt-3 pb-6 space-y-3">
+            <div class="flex items-center justify-between pb-3 border-b border-dark-800">
+                <span class="text-xs text-gray-400 font-medium">Status Operasional Hari Ini:</span>
+                <div id="status-badge-mobile" class="px-3 py-1 rounded-full text-xs font-bold border flex items-center gap-1.5 bg-dark-800 border-dark-700 text-gray-400">
+                    <span id="status-dot-mobile" class="w-2 h-2 rounded-full bg-gray-500"></span>
+                    <span id="status-text-mobile">Mengecek...</span>
+                </div>
+            </div>
+            <a href="#beranda" class="mobile-link block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-dark-800 hover:text-gold-400">Beranda</a>
+            <a href="#pangkas" class="mobile-link block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-dark-800 hover:text-gold-400">Pangkas Rambut</a>
+            <a href="#kuliner" class="mobile-link block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-dark-800 hover:text-gold-400">Warung Makan & Minum</a>
+            <a href="#galeri" class="mobile-link block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-dark-800 hover:text-gold-400">Galeri Foto</a>
+            <a href="#order" class="mobile-link block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-dark-800 hover:text-gold-400">Order & Keranjang Pesanan</a>
+            <a href="#lokasi" class="mobile-link block px-3 py-2 rounded-lg text-sm font-semibold hover:bg-dark-800 hover:text-gold-400">Lokasi & Jam Buka</a>
+            
+            <a href="https://wa.me/62895611001157?text=Halo%20Pangkas%20Topoy%2C%20saya%20ingin%20tanya%20layanan%20/%20pesan%20tempat." 
+               target="_blank" rel="noopener noreferrer"
+               class="mobile-link text-center mt-4 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex items-center justify-center gap-2">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Chat Admin WA (0895611001157)
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=1920&auto=format&fit=crop" 
+                 alt="Pangkas Topoy Barbershop" 
+                 class="w-full h-full object-cover filter brightness-20 contrast-125 scale-105"
+                 onerror="this.src='https://placehold.co/1920x1080/12141C/eab308?text=PANGKAS+TOPOY'">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/80 to-dark-950/40"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-dark-950 via-dark-950/90 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-dark-800/90 border border-gold-500/40 text-xs font-bold uppercase tracking-wider text-gray-200 backdrop-blur-md shadow-xl">
+                        <span class="w-3.5 h-3.5 rounded-full animated-barber-pole inline-block border border-white/20"></span>
+                        <span>BARBERSHOP & WARUNG MAKAN TERPADU</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-black text-white leading-none tracking-tight">
+                        CUKUR TAMPAN, <br>
+                        MAKAN <span class="gold-gradient-text">KENYANG!</span> 💈🍜
+                    </h1>
+
+                    <p class="text-gray-300 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
+                        Solusi lengkap tempat pangkas rambut gaya modern presisi mulai dari <strong class="text-gold-400">Rp 15.000</strong>, sekaligus tempat santai nikmati sajian lezat hangat Bakso, Mie Ayam, & Ayam Penyet khas <strong class="text-white">PANGKAS TOPOY</strong>.
+                    </p>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 max-w-xl">
+                        <div class="bg-dark-900/90 border border-gold-500/50 rounded-2xl p-3.5 backdrop-blur-md">
+                            <p class="text-[10px] text-gray-400 font-extrabold uppercase">Cukur Dewasa</p>
+                            <p class="text-xl font-heading font-black text-gold-400">Rp 20.000</p>
+                        </div>
+                        <div class="bg-dark-900/90 border border-dark-700 rounded-2xl p-3.5 backdrop-blur-md">
+                            <p class="text-[10px] text-gray-400 font-extrabold uppercase">Cukur Anak</p>
+                            <p class="text-xl font-heading font-black text-white">Rp 15.000</p>
+                        </div>
+                        <div class="bg-dark-900/90 border border-amberGlow-500/50 rounded-2xl p-3.5 backdrop-blur-md col-span-2 sm:col-span-1">
+                            <p class="text-[10px] text-gray-400 font-extrabold uppercase">Bakso & Mie Ayam</p>
+                            <p class="text-xl font-heading font-black text-amberGlow-400">Rp 15.000</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+                        <a href="#pangkas" class="px-8 py-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-950 font-black text-center text-sm uppercase tracking-wider transition-all duration-300 transform hover:-translate-y-1 shadow-xl shadow-gold-500/20 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-scissors text-base"></i> Booking Pangkas
+                        </a>
+                        <a href="#kuliner" class="px-8 py-4 rounded-xl bg-dark-800 hover:bg-dark-700 text-white font-extrabold text-center text-sm uppercase tracking-wider border border-dark-700 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-bowl-food text-amberGlow-400 text-base"></i> Pesan Makanan
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="bg-dark-900/90 border border-dark-700/80 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative space-y-6">
+                        <div class="absolute -top-3 -right-3 bg-gold-500 text-dark-950 text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-md">
+                            Buka Setiap Hari
+                        </div>
+
+                        <h3 class="text-xl font-heading font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-clock text-gold-400"></i> Operational Hours
+                        </h3>
+
+                        <div class="bg-dark-800/80 p-4 rounded-2xl border border-dark-700/60 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-gray-400 font-medium">Senin - Minggu</p>
+                                <p class="text-xl font-extrabold text-white">10.00 - 22.00 WIB</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                                Buka
+                            </span>
+                        </div>
+
+                        <div class="space-y-3 pt-2">
+                            <p class="text-xs text-gold-400 font-bold uppercase tracking-wider">✨ Keunggulan Pangkas Topoy</p>
+                            <ul class="text-xs text-gray-300 space-y-2.5">
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-gold-400"></i> Barber handal berpengalaman & paham trend</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-amberGlow-400"></i> Tempat bersih, nyaman & parkir luas</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-gold-400"></i> Makanan dibuat fresh dengan bahan segar</li>
+                                <li class="flex items-center gap-2.5"><i class="fa-solid fa-circle-check text-amberGlow-400"></i> Booking via WA tanpa antri lama</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Barbershop Services Section -->
+    <section id="pangkas" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <span class="text-gold-400 font-bold text-xs uppercase tracking-widest bg-gold-500/10 px-3.5 py-1.5 rounded-full border border-gold-500/20">
+                    Layanan Barbershop
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-black text-white">Layanan & Pricelist Cukur</h2>
+                <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full"></div>
+                <p class="text-gray-400 text-sm sm:text-base">Potongan rapi presisi sesuai bentuk wajah dengan peralatan higienis dan terawat.</p>
+            </div>
+
+            <!-- Service Cards Grid -->
+            <div id="barber-services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Dynamically rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Warung Makan & Culinary Section -->
+    <section id="kuliner" class="py-24 bg-dark-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                <span class="text-amberGlow-400 font-bold text-xs uppercase tracking-widest bg-amberGlow-500/10 px-3.5 py-1.5 rounded-full border border-amberGlow-500/20">
+                    Warung Makan Topoy
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-black text-white">Menu Makanan & Minuman</h2>
+                <div class="w-16 h-1 bg-amberGlow-500 mx-auto rounded-full"></div>
+                <p class="text-gray-400 text-sm sm:text-base">Sajian lezat menggugah selera untuk menemani waktu pangkas atau makan santai.</p>
+            </div>
+
+            <!-- Food Category Filters -->
+            <div class="flex justify-center flex-wrap gap-2 mb-10">
+                <button onclick="filterFood('all')" class="food-filter-btn px-5 py-2 rounded-full text-xs font-bold transition-all bg-amberGlow-500 text-dark-950 shadow-md" data-category="all">Semua Menu</button>
+                <button onclick="filterFood('makanan')" class="food-filter-btn px-5 py-2 rounded-full text-xs font-bold transition-all bg-dark-800 text-gray-400 hover:text-white border border-dark-700" data-category="makanan">Makanan Utama</button>
+                <button onclick="filterFood('minuman')" class="food-filter-btn px-5 py-2 rounded-full text-xs font-bold transition-all bg-dark-800 text-gray-400 hover:text-white border border-dark-700" data-category="minuman">Aneka Minuman</button>
+            </div>
+
+            <!-- Food Cards Container -->
+            <div id="food-menu-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Cart & Order Form Section -->
+    <section id="order" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                <span class="text-emerald-400 font-bold text-xs uppercase tracking-widest bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20">
+                    <i class="fa-brands fa-whatsapp"></i> Keranjang & Booking Sistem
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-heading font-black text-white">Formulir Pemesanan Terpadu</h2>
+                <p class="text-gray-400 text-sm">Periksa daftar layanan / makanan pilihan Anda, lalu isi tanggal & jam untuk order via WhatsApp.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Column: Cart Selected Items -->
+                <div class="lg:col-span-6 bg-dark-950 border border-dark-700 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+                    <div class="flex items-center justify-between pb-4 border-b border-dark-800">
+                        <h3 class="text-xl font-heading font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping text-gold-400"></i> Ringkasan Pesanan Anda
+                        </h3>
+                        <button onclick="clearCart()" class="text-xs text-red-400 hover:text-red-300 font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-trash-can"></i> Kosongkan
+                        </button>
+                    </div>
+
+                    <!-- Cart Item List Container -->
+                    <div id="cart-items-list" class="space-y-3 max-h-96 overflow-y-auto pr-1">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Cart Total Calculation Box -->
+                    <div class="p-4 rounded-2xl bg-dark-900 border border-dark-700/80 space-y-2">
+                        <div class="flex justify-between text-xs text-gray-400">
+                            <span>Total Item Cukur/Tambahan:</span>
+                            <span id="summary-barber-total" class="font-bold text-white">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-400">
+                            <span>Total Makanan & Minuman:</span>
+                            <span id="summary-food-total" class="font-bold text-white">Rp 0</span>
+                        </div>
+                        <div class="pt-2 border-t border-dark-700/60 flex justify-between items-center">
+                            <span class="text-sm font-bold text-white">Total Keseluruhan:</span>
+                            <span id="cart-grand-total" class="text-2xl font-heading font-black text-gold-400">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Booking Information Form -->
+                <div class="lg:col-span-6 bg-dark-950 border border-dark-700 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                    <h3 class="text-xl font-heading font-bold text-white mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-user-pen text-amberGlow-400"></i> Detail Pemesan
+                    </h3>
+
+                    <form id="checkout-form" class="space-y-4">
+                        <!-- Nama -->
+                        <div>
+                            <label for="cust-name" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Nama Lengkap *</label>
+                            <input type="text" id="cust-name" required placeholder="Contoh: Mas Budi" class="w-full bg-dark-900 border border-dark-700 rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-gold-500">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Tanggal -->
+                            <div>
+                                <label for="cust-date" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Tanggal Datang *</label>
+                                <input type="date" id="cust-date" required class="w-full bg-dark-900 border border-dark-700 rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-gold-500">
+                            </div>
+                            <!-- Jam -->
+                            <div>
+                                <label for="cust-time" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Jam Datang (10.00-22.00) *</label>
+                                <input type="time" id="cust-time" min="10:00" max="22:00" required class="w-full bg-dark-900 border border-dark-700 rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-gold-500">
+                            </div>
+                        </div>
+
+                        <!-- Catatan / Special Request -->
+                        <div>
+                            <label for="cust-notes" class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1.5">Catatan Tambahan (Model Potongan / Request Pedas)</label>
+                            <textarea id="cust-notes" rows="3" placeholder="Contoh: Model Undercut rapi, Bakso pedas sedang..." class="w-full bg-dark-900 border border-dark-700 rounded-xl py-3 px-4 text-white text-sm focus:outline-none focus:border-gold-500"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm uppercase tracking-wider transition-all duration-300 shadow-xl shadow-emerald-600/25 flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-xl"></i> Kirim Pesanan via WhatsApp (0895611001157)
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galeri" class="py-24 bg-dark-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                <span class="text-gold-400 font-bold text-xs uppercase tracking-widest bg-gold-500/10 px-3.5 py-1.5 rounded-full border border-gold-500/20">
+                    Galeri Dokumentasi
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-heading font-black text-white">Hasil Pangkas & Menu</h2>
+                <div class="w-16 h-1 bg-gold-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Gallery Filters -->
+            <div class="flex justify-center gap-3 mb-10">
+                <button onclick="filterGallery('all')" class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold bg-gold-500 text-dark-950" data-gallery="all">Semua</button>
+                <button onclick="filterGallery('rambut')" class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold bg-dark-800 text-gray-400 border border-dark-700 hover:text-white" data-gallery="rambut">Gaya Rambut</button>
+                <button onclick="filterGallery('kuliner')" class="gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold bg-dark-800 text-gray-400 border border-dark-700 hover:text-white" data-gallery="kuliner">Sajian Makanan</button>
+            </div>
+
+            <div id="gallery-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Google Maps Section -->
+    <section id="lokasi" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+                <div class="space-y-8">
+                    <div>
+                        <span class="text-gold-400 font-bold text-xs uppercase tracking-widest bg-gold-500/10 px-3.5 py-1.5 rounded-full border border-gold-500/20">
+                            Lokasi & Kontak
+                        </span>
+                        <h2 class="text-3xl sm:text-5xl font-heading font-black text-white mt-3">Kunjungi Pangkas Topoy</h2>
+                        <div class="w-16 h-1 bg-gold-500 rounded-full mt-4"></div>
+                    </div>
+
+                    <div class="p-6 rounded-3xl bg-dark-950 border border-dark-700 shadow-xl flex items-center justify-between">
+                        <div class="space-y-1">
+                            <p class="text-xs text-gray-400 font-bold uppercase">Status Operasional Tempat:</p>
+                            <div class="flex items-center gap-2">
+                                <span id="main-status-dot" class="w-3.5 h-3.5 rounded-full bg-emerald-500"></span>
+                                <p id="main-status-text" class="text-xl font-heading font-bold text-white">Buka Sekarang</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-400 block">Jam Operasional:</span>
+                            <span class="text-sm font-bold text-gold-400">10.00 - 22.00 WIB</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 flex-shrink-0 text-xl">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-base">Jam Buka</h4>
+                                <p class="text-gray-400 text-sm mt-1">Setiap Hari: <strong class="text-white">10.00 - 22.00 WIB</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 flex-shrink-0 text-xl">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-base">WhatsApp Booking / Order</h4>
+                                <p class="text-gray-400 text-sm mt-1">Hubungi Admin: <a href="https://wa.me/62895611001157" target="_blank" class="text-emerald-400 font-bold hover:underline">0895611001157</a></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-amberGlow-500/10 border border-amberGlow-500/30 flex items-center justify-center text-amberGlow-400 flex-shrink-0 text-xl">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-base">Alamat Lengkap</h4>
+                                <p class="text-gray-400 text-sm mt-1">Area Tangerang, Banten (Dekat Pemukiman & Pusat Kegiatan)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-dark-950 p-4 rounded-3xl border border-dark-700 h-[420px] relative shadow-2xl flex flex-col justify-between overflow-hidden">
+                    <iframe 
+                        title="Lokasi Pangkas Topoy Tangerang"
+                        class="w-full h-full rounded-2xl filter grayscale contrast-125 opacity-80" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63465.84831201201!2d106.600000!3d-6.230000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb7a12345678%3A0x123456789abcdef!2sTangerang%2C%20Banten!5e0!3m2!1sid!2sid!4v1680000000000!5m2!1sid!2sid" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="absolute bottom-6 left-6 right-6 bg-dark-900/90 backdrop-blur-md p-4 rounded-2xl border border-dark-700 flex items-center justify-between">
+                        <div>
+                            <p class="text-white font-bold text-sm">PANGKAS TOPOY 💈🍜</p>
+                            <p class="text-gray-400 text-xs">Tangerang • Buka 10.00 - 22.00</p>
+                        </div>
+                        <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gold-500 text-dark-950 rounded-xl text-xs font-black hover:bg-gold-400 transition-colors">
+                            Petunjuk Arah <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-950 border-t border-dark-800 pt-16 pb-8 text-gray-400 text-sm mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-dark-800">
+
+                <div class="space-y-4 md:col-span-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-dark-800 border border-gold-500/50 flex items-center justify-center text-gold-400">
+                            <i class="fa-solid fa-scissors"></i>
+                        </div>
+                        <span class="font-heading font-black text-xl text-white">
+                            PANGKAS <span class="text-gold-400">TOPOY</span> 💈🍜
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed max-w-md">
+                        Pangkas Rambut gaya modern presisi & Warung Makan terpadu. Nikmati sajian Bakso, Mie Ayam, dan Ayam Penyet nikmat sehabis pangkas rambut.
+                    </p>
+                    <p class="text-xs text-gold-400 font-bold">
+                        <i class="fa-solid fa-clock mr-1"></i> Buka Setiap Hari (10.00 - 22.00 WIB)
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-heading font-bold mb-4 text-base">Navigasi Cepat</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#beranda" class="hover:text-gold-400 transition-colors">Beranda</a></li>
+                        <li><a href="#pangkas" class="hover:text-gold-400 transition-colors">Pangkas Rambut</a></li>
+                        <li><a href="#kuliner" class="hover:text-gold-400 transition-colors">Warung Makan</a></li>
+                        <li><a href="#order" class="hover:text-gold-400 transition-colors">Order & Keranjang</a></li>
+                        <li><a href="#lokasi" class="hover:text-gold-400 transition-colors">Lokasi</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-heading font-bold mb-4 text-base">Hubungi Kami</h4>
+                    <div class="space-y-3 text-xs">
+                        <p class="flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
+                            <span>0895611001157</span>
+                        </p>
+                        <div class="flex space-x-3 pt-2">
+                            <a href="https://wa.me/62895611001157" target="_blank" aria-label="WhatsApp Topoy" class="w-9 h-9 rounded-xl bg-dark-800 border border-dark-700 flex items-center justify-center text-emerald-400 hover:bg-emerald-600 hover:text-white transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="#" aria-label="Instagram Topoy" class="w-9 h-9 rounded-xl bg-dark-800 border border-dark-700 flex items-center justify-center text-gray-400 hover:text-gold-400 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#" aria-label="TikTok Topoy" class="w-9 h-9 rounded-xl bg-dark-800 border border-dark-700 flex items-center justify-center text-gray-400 hover:text-gold-400 transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 text-center text-xs text-gray-500">
+                <p>&copy; 2026 PANGKAS TOPOY. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Widget -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-emerald-600 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 font-semibold text-xs border border-emerald-400/30">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-lg"></i>
+        <span id="toast-message">Item berhasil ditambahkan ke keranjang!</span>
+    </div>
+
+    <!-- JavaScript Application State & Logic -->
+    <script>
+        // Data Sources
+        const barberServices = [
+            { id: 'b1', name: 'Pangkas Rambut Dewasa', price: 20000, desc: 'Cukur presisi + styling rapi & pijat ringan leher.', category: 'barber', badge: 'Terfavorit', img: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=600&auto=format&fit=crop' },
+            { id: 'b2', name: 'Pangkas Rambut Anak-anak', price: 15000, desc: 'Cukur sabar & ramah anak agar si kecil tampan.', category: 'barber', badge: 'Paling Laris', img: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=600&auto=format&fit=crop' },
+            { id: 'b3', name: 'Cuci + Styling Pomade', price: 5000, desc: 'Keramas segar + perapihan dengan pomade / wax.', category: 'addon', badge: 'Tambahan', img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=600&auto=format&fit=crop' },
+            { id: 'b4', name: 'Cukur Jenggot & Kumis', price: 10000, desc: 'Cukur rapi atau membentuk kumis & jenggot.', category: 'addon', badge: 'Tambahan', img: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=600&auto=format&fit=crop' }
+        ];
+
+        const foodMenu = [
+            { id: 'f1', name: 'Bakso Topoy', price: 15000, desc: 'Bakso sapi kenyal gurih + tahu + mie & kuah kaldu segar.', category: 'makanan', badge: 'Gurih', img: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600&auto=format&fit=crop' },
+            { id: 'f2', name: 'Mie Ayam Biasa', price: 15000, desc: 'Mie kenyal dengan ayam cincang manis gurih & pangsit.', category: 'makanan', badge: 'Favorit', img: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?q=80&w=600&auto=format&fit=crop' },
+            { id: 'f3', name: 'Mie Ayam Bakso', price: 17000, desc: 'Mie ayam komplit dengan tambahan bakso sapi kenyal.', category: 'makanan', badge: 'Komplit', img: 'https://images.unsplash.com/photo-1552611052-33e04de081de?q=80&w=600&auto=format&fit=crop' },
+            { id: 'f4', name: 'Ayam Penyet', price: 15000, desc: 'Ayam goreng krispi dipenyet sambal ulek segar pedas.', category: 'makanan', badge: 'Pedas', img: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop' },
+            { id: 'f5', name: 'Aneka Minuman Segar', price: 5000, desc: 'Es Teh Manis / Es Jeruk / Kopi Hitam / Kopi Susu / Jus / Air Mineral.', category: 'minuman', badge: 'Dingin/Hangat', img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop' }
+        ];
+
+        const galleryItems = [
+            { title: 'Fade Cut Modern', type: 'rambut', img: 'https://images.unsplash.com/photo-1622286342621-4bd786c2447c?q=80&w=600&auto=format&fit=crop' },
+            { title: 'Two Block Asian Style', type: 'rambut', img: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=600&auto=format&fit=crop' },
+            { title: 'Bakso Kuah Sapi Segar', type: 'kuliner', img: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=600&auto=format&fit=crop' },
+            { title: 'Classic Pompadour', type: 'rambut', img: 'https://images.unsplash.com/photo-1517832606589-7150a6d828a2?q=80&w=600&auto=format&fit=crop' },
+            { title: 'Mie Ayam Special Topoy', type: 'kuliner', img: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?q=80&w=600&auto=format&fit=crop' },
+            { title: 'Ayam Penyet Sambal Ulek', type: 'kuliner', img: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop' }
+        ];
+
+        // Global State Manager
+        let cart = [];
+
+        // Format Currency Utility
+        function formatRupiah(amount) {
+            return 'Rp ' + amount.toLocaleString('id-ID');
+        }
+
+        // Show Toast Notification
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast-notification');
+            const toastMsg = document.getElementById('toast-message');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.textContent = message;
+            if (isError) {
+                toast.className = toast.className.replace('bg-emerald-600', 'bg-red-600');
+                toastIcon.className = 'fa-solid fa-circle-exclamation text-lg';
+            } else {
+                toast.className = toast.className.replace('bg-red-600', 'bg-emerald-600');
+                toastIcon.className = 'fa-solid fa-circle-check text-lg';
+            }
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 2500);
+        }
+
+        // Scroll helper
+        function scrollToCart() {
+            const orderSec = document.getElementById('order');
+            if (orderSec) {
+                orderSec.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Cart Actions
+        function addToCart(itemId, source = 'all') {
+            const allItems = [...barberServices, ...foodMenu];
+            const foundItem = allItems.find(i => i.id === itemId);
+
+            if (!foundItem) return;
+
+            const existingIndex = cart.findIndex(i => i.id === itemId);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    id: foundItem.id,
+                    name: foundItem.name,
+                    price: foundItem.price,
+                    category: foundItem.category,
+                    qty: 1
+                });
+            }
+
+            updateCartUI();
+            showToast(`${foundItem.name} ditambahkan ke pesanan!`);
+        }
+
+        function updateCartQty(itemId, delta) {
+            const index = cart.findIndex(i => i.id === itemId);
+            if (index > -1) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartUI();
+            showToast('Pesanan telah dikosongkan.', true);
+        }
+
+        function updateCartUI() {
+            const cartContainer = document.getElementById('cart-items-list');
+            const badgeNav = document.getElementById('cart-count-badge');
+            const badgeMobile = document.getElementById('cart-count-badge-mobile');
+            
+            const barberSummary = document.getElementById('summary-barber-total');
+            const foodSummary = document.getElementById('summary-food-total');
+            const grandTotalEl = document.getElementById('cart-grand-total');
+
+            const totalItemsCount = cart.reduce((acc, cur) => acc + cur.qty, 0);
+            badgeNav.textContent = totalItemsCount;
+            badgeMobile.textContent = totalItemsCount;
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="text-center py-8 text-gray-500 text-xs">
+                        <i class="fa-solid fa-basket-shopping text-3xl mb-2 text-dark-700 block"></i>
+                        Belum ada item dipilih.<br>Klik "Tambah" pada menu Cukur atau Makanan.
+                    </div>
+                `;
+                barberSummary.textContent = 'Rp 0';
+                foodSummary.textContent = 'Rp 0';
+                grandTotalEl.textContent = 'Rp 0';
+                return;
+            }
+
+            let totalBarber = 0;
+            let totalFood = 0;
+
+            cartContainer.innerHTML = cart.map(item => {
+                const subtotal = item.price * item.qty;
+                if (item.category === 'barber' || item.category === 'addon') {
+                    totalBarber += subtotal;
+                } else {
+                    totalFood += subtotal;
+                }
+
+                return `
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-dark-900 border border-dark-800 text-xs">
+                        <div class="space-y-0.5">
+                            <p class="font-bold text-white">${item.name}</p>
+                            <p class="text-gray-400">${formatRupiah(item.price)} × ${item.qty} = <span class="text-gold-400 font-semibold">${formatRupiah(subtotal)}</span></p>
+                        </div>
+                        <div class="flex items-center gap-2 bg-dark-800 rounded-lg p-1 border border-dark-700">
+                            <button onclick="updateCartQty('${item.id}', -1)" class="w-6 h-6 rounded bg-dark-700 hover:bg-dark-600 text-white font-bold flex items-center justify-center">-</button>
+                            <span class="font-bold text-white px-1">${item.qty}</span>
+                            <button onclick="updateCartQty('${item.id}', 1)" class="w-6 h-6 rounded bg-gold-500 hover:bg-gold-400 text-dark-950 font-bold flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            barberSummary.textContent = formatRupiah(totalBarber);
+            foodSummary.textContent = formatRupiah(totalFood);
+            grandTotalEl.textContent = formatRupiah(totalBarber + totalFood);
+        }
+
+        // Render Barbershop Services Grid
+        function renderBarberServices() {
+            const container = document.getElementById('barber-services-container');
+            container.innerHTML = barberServices.map(s => `
+                <div class="bg-dark-800 rounded-3xl p-6 border border-dark-700 hover:border-gold-500/50 transition-all duration-300 shadow-xl flex flex-col justify-between group">
+                    <div class="space-y-4">
+                        <div class="h-40 rounded-2xl overflow-hidden relative">
+                            <img src="${s.img}" alt="${s.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/600x400/1B1E2B/eab308?text=${encodeURIComponent(s.name)}'">
+                            <span class="absolute top-3 right-3 bg-gold-500 text-dark-950 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">${s.badge}</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-heading font-bold text-white">${s.name}</h3>
+                            <p class="text-gray-400 text-xs mt-1 leading-relaxed">${s.desc}</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-dark-700/80 flex items-center justify-between">
+                        <span class="text-xl font-heading font-black text-gold-400">${formatRupiah(s.price)}</span>
+                        <button onclick="addToCart('${s.id}')" class="px-3.5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-950 font-black text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md">
+                            <i class="fa-solid fa-plus"></i> Tambah
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Food Menu Grid & Filter
+        function renderFoodMenu(filterCategory = 'all') {
+            const container = document.getElementById('food-menu-container');
+            const items = filterCategory === 'all' ? foodMenu : foodMenu.filter(f => f.category === filterCategory);
+
+            container.innerHTML = items.map(f => `
+                <div class="bg-dark-900 border border-dark-700/80 rounded-3xl overflow-hidden shadow-xl hover:border-amberGlow-500/50 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="${f.img}" alt="${f.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/12141C/f97316?text=${encodeURIComponent(f.name)}'">
+                            <span class="absolute top-3 right-3 bg-amberGlow-500 text-dark-950 font-black text-[10px] px-3 py-1 rounded-full uppercase">
+                                ${f.badge}
+                            </span>
+                        </div>
+                        <div class="p-6 space-y-2">
+                            <h3 class="text-xl font-heading font-bold text-white">${f.name}</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed">${f.desc}</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 border-t border-dark-800 flex items-center justify-between mt-4">
+                        <span class="text-2xl font-heading font-black text-amberGlow-400">${formatRupiah(f.price)}</span>
+                        <button onclick="addToCart('${f.id}')" class="px-4 py-2 rounded-xl bg-amberGlow-500 hover:bg-amberGlow-400 text-dark-950 font-black text-xs uppercase transition-all flex items-center gap-1.5 shadow-md">
+                            <i class="fa-solid fa-cart-plus"></i> Tambah
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterFood(category) {
+            document.querySelectorAll('.food-filter-btn').forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.className = 'food-filter-btn px-5 py-2 rounded-full text-xs font-bold transition-all bg-amberGlow-500 text-dark-950 shadow-md';
+                } else {
+                    btn.className = 'food-filter-btn px-5 py-2 rounded-full text-xs font-bold transition-all bg-dark-800 text-gray-400 hover:text-white border border-dark-700';
+                }
+            });
+            renderFoodMenu(category);
+        }
+
+        // Render Gallery & Filter
+        function renderGallery(type = 'all') {
+            const container = document.getElementById('gallery-container');
+            const items = type === 'all' ? galleryItems : galleryItems.filter(g => g.type === type);
+
+            container.innerHTML = items.map(g => `
+                <div class="bg-dark-900 border border-dark-800 rounded-3xl overflow-hidden shadow-lg group relative h-64">
+                    <img src="${g.img}" alt="${g.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/12141C/eab308?text=PANGKAS+TOPOY'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <span class="text-[10px] font-black uppercase text-gold-400 tracking-wider">${g.type === 'rambut' ? 'Gaya Rambut' : 'Menu Kuliner'}</span>
+                        <h4 class="text-base font-bold text-white">${g.title}</h4>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterGallery(type) {
+            document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+                if (btn.dataset.gallery === type) {
+                    btn.className = 'gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold bg-gold-500 text-dark-950';
+                } else {
+                    btn.className = 'gallery-filter-btn px-5 py-2 rounded-full text-xs font-bold bg-dark-800 text-gray-400 border border-dark-700 hover:text-white';
+                }
+            });
+            renderGallery(type);
+        }
+
+        // Realtime Status Checker (10.00 - 22.00)
+        function checkShopStatus() {
+            const now = new Date();
+            const hours = now.getHours();
+            const isOpen = hours >= 10 && hours < 22;
+
+            const statusDotNav = document.getElementById('status-dot-nav');
+            const statusTextNav = document.getElementById('status-text-nav');
+            const statusDotMobile = document.getElementById('status-dot-mobile');
+            const statusTextMobile = document.getElementById('status-text-mobile');
+            const mainStatusDot = document.getElementById('main-status-dot');
+            const mainStatusText = document.getElementById('main-status-text');
+
+            if (isOpen) {
+                if (statusDotNav) statusDotNav.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]';
+                if (statusTextNav) {
+                    statusTextNav.textContent = 'BUKA (10.00 - 22.00)';
+                    statusTextNav.className = 'text-emerald-400 font-extrabold';
+                }
+                if (statusDotMobile) statusDotMobile.className = 'w-2 h-2 rounded-full bg-emerald-500';
+                if (statusTextMobile) {
+                    statusTextMobile.textContent = 'BUKA';
+                    statusTextMobile.className = 'text-emerald-400 font-bold';
+                }
+                if (mainStatusDot) mainStatusDot.className = 'w-3.5 h-3.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]';
+                if (mainStatusText) {
+                    mainStatusText.textContent = 'Buka Sekarang';
+                    mainStatusText.className = 'text-xl font-heading font-bold text-emerald-400';
+                }
+            } else {
+                if (statusDotNav) statusDotNav.className = 'w-2.5 h-2.5 rounded-full bg-red-500';
+                if (statusTextNav) {
+                    statusTextNav.textContent = 'TUTUP (Buka Jam 10.00)';
+                    statusTextNav.className = 'text-red-400 font-extrabold';
+                }
+                if (statusDotMobile) statusDotMobile.className = 'w-2 h-2 rounded-full bg-red-500';
+                if (statusTextMobile) {
+                    statusTextMobile.textContent = 'TUTUP';
+                    statusTextMobile.className = 'text-red-400 font-bold';
+                }
+                if (mainStatusDot) mainStatusDot.className = 'w-3.5 h-3.5 rounded-full bg-red-500';
+                if (mainStatusText) {
+                    mainStatusText.textContent = 'Tutup (Buka Jam 10.00)';
+                    mainStatusText.className = 'text-xl font-heading font-bold text-red-400';
+                }
+            }
+        }
+
+        // DOM Loaded Setup
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBarberServices();
+            renderFoodMenu();
+            renderGallery();
+            updateCartUI();
+            checkShopStatus();
+            setInterval(checkShopStatus, 60000);
+
+            // Set minimum date input to today
+            const custDateInput = document.getElementById('cust-date');
+            if (custDateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                custDateInput.value = today;
+                custDateInput.min = today;
+            }
+
+            // Mobile Nav Listener
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+                mobileLinks.forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+            }
+
+            // Checkout Form Submit -> Formatted WhatsApp Redirection
+            const checkoutForm = document.getElementById('checkout-form');
+            if (checkoutForm) {
+                checkoutForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    if (cart.length === 0) {
+                        showToast('Pilih minimal 1 pangkas rambut atau makanan!', true);
+                        return;
+                    }
+
+                    const name = document.getElementById('cust-name').value;
+                    const date = document.getElementById('cust-date').value;
+                    const time = document.getElementById('cust-time').value;
+                    const notes = document.getElementById('cust-notes').value || '-';
+
+                    let totalBarberPrice = 0;
+                    let totalFoodPrice = 0;
+
+                    let itemsText = cart.map((item, idx) => {
+                        const sub = item.price * item.qty;
+                        if (item.category === 'barber' || item.category === 'addon') totalBarberPrice += sub;
+                        else totalFoodPrice += sub;
+
+                        return `${idx + 1}. ${item.name} (${item.qty}x) = ${formatRupiah(sub)}`;
+                    }).join('%0A');
+
+                    const grandTotal = totalBarberPrice + totalFoodPrice;
+
+                    const waMessage = 
+                        `Halo *PANGKAS TOPOY & WARUNG MAKAN* 💈🍜,%0A` +
+                        `Saya mau pesan / booking:%0A%0A` +
+                        `👤 *Nama Pemesan:* ${encodeURIComponent(name)}%0A` +
+                        `📅 *Tanggal Datang:* ${encodeURIComponent(date)}%0A` +
+                        `⏰ *Jam Datang:* ${encodeURIComponent(time)} WIB%0A%0A` +
+                        `🛒 *Rincian Pesanan:*%0A${itemsText}%0A%0A` +
+                        `💵 *Total Tagihan:* ${encodeURIComponent(formatRupiah(grandTotal))}%0A` +
+                        `📝 *Catatan:* ${encodeURIComponent(notes)}%0A%0A` +
+                        `Mohon dikonfirmasi ketersediaan tempat/slotnya. Terima kasih!`;
+
+                    const phoneNumber = '62895611001157';
+                    window.open(`https://wa.me/${phoneNumber}?text=${waMessage}`, '_blank');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
